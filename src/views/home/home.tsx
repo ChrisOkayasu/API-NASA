@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { format, sub } from "date-fns";
 import { View, StyleSheet } from "react-native"
+import { PostImage } from "../../types";
+
+import NasaApi from "../../api/fetch";
 import Header from "../../components/header";
 import TodaysImage from "../../components/todaysImage";
-import NasaApi from "../../api/fetch";
-import { PostImage } from "../../types";
+import LastFiveDaysImages from "../../components/lastFiveDaysImages";
 
 const Home = () => {
     const [todaysImage, setTodaysImage] = useState<PostImage>();
@@ -36,14 +38,14 @@ const Home = () => {
 
         loadTodaysImage().catch(null);
         loadLast5DaysImages().catch(null)
-    }, [])
-    
-    console.log(lastFiveDaysImages)
-    
+    }, []) //NOTE - if [] it's blank means useEffect will run once the App is started otherwise
+           // it should complete the requests before run the useEffect.
+        
     return (
         <View style={styles.container}>
             <Header />
             <TodaysImage {...todaysImage} />
+            <LastFiveDaysImages postImages={lastFiveDaysImages}/>
         </View>
     )
 }
@@ -56,4 +58,3 @@ const styles = StyleSheet.create({
 })
 
 export default Home;
-
