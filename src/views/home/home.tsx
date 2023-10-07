@@ -12,7 +12,6 @@ const Home = () => {
     const [todaysImage, setTodaysImage] = useState<PostImage>();
     const [lastFiveDaysImages, setLastFiveDaysImages] = useState<PostImage[]>([]);
 
-    
     useEffect(() => {
         const loadTodaysImage = async () => {
             try {
@@ -27,7 +26,8 @@ const Home = () => {
         const loadLast5DaysImages = async () => {
             try {
                 const date = new Date();
-                const todaysDay = format(date, 'yyyy-MM-dd');
+                // const todaysDay = format(date, 'yyyy-MM-dd');
+                const todaysDay = format(sub(date, { days: 1 }), 'yyyy-MM-dd');
                 const fiveDaysAgo = format(sub(date, { days: 5 }), 'yyyy-MM-dd');
                 const lastFiveDaysImagesResponse = await NasaApi(`&start_date=${fiveDaysAgo}&end_date=${todaysDay}`);
                 setLastFiveDaysImages(lastFiveDaysImagesResponse)

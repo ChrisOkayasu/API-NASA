@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 
     content: {
         paddingHorizontal: 24,
+        color: '#fff',
     }
 });
 export default lastFiveDaysImages;
